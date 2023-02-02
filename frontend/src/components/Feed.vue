@@ -13,7 +13,6 @@
 import { baseApiUrl } from '@/global'
 import Canva from './Canva'
 import axios from 'axios'
-import { mapState } from 'vuex'
 import Footer from './Footer.vue'
 
 export default{
@@ -22,7 +21,6 @@ export default{
         Canva,
         Footer
     },
-    computed: mapState(['user']),
     data: function(){
         return {
             arts: [],
@@ -30,13 +28,11 @@ export default{
         }
     },
     methods: {
-        getArt(){
+        async getArt(){
             this.offset = document.getElementsByClassName('canva').length
-            
-            if(this.user)
-                axios.get(`${baseApiUrl}/art?offset=${this.offset}`)
-                    .then(res => res.data.forEach(e => this.arts.push(e)))
-            else setTimeout(() => this.getArt(), 200)
+            axios.get(`${baseApiUrl}/art?offset=${this.offset}`)
+                .then(res => res.data.forEach(e => this.arts.push(e)))
+                .catch(res => console.log(res))
         }
     },
     mounted(){
@@ -53,6 +49,7 @@ export default{
     justify-content: space-between;
     padding: 60px 0 0 0;
 }
+
 #canvaConteiner{
     display: flex;
     flex-direction: row;

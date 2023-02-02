@@ -46,8 +46,16 @@ module.exports = app => {
             .where({ id: req.params.id })
             .first()
             .then(query => res.send(query))
-        console.log(req.params)
     }
 
-    return { save, get, getUserArts, getById }
+    const remove = (req, res ) => {
+        const user = decodeToken(req.headers.authorization)
+
+        app.db('art')
+            .where({id: req.params.id, authorId: user.id})
+            .del()
+            .then(res.send(200))
+    }
+
+    return { save, get, getUserArts, getById, remove }
 }

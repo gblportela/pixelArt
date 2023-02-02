@@ -39,6 +39,8 @@ module.exports = app => {
                 const token = jwt.decode(userData.token, authSecret)
                 if(new Date(token.exp * 1000) > new Date()){
                     return res.send(true)
+                } else{
+                    return res.send(false)
                 }
             }
         } catch(e){

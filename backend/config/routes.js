@@ -12,7 +12,7 @@ module.exports = app => {
     app.route('/art/:id')
     .all(app.config.passport.authenticate())
     .get(app.api.art.getById)
-    
+    .delete(app.api.art.remove)
     
     app.route('/myarts')
         .all(app.config.passport.authenticate())

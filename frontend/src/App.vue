@@ -20,22 +20,25 @@ export default {
   },
     computed: mapState(['user', 'isMenuVisible']),
     methods: {
-        async validateToken(){
+        validateToken(){
             const json = localStorage.getItem(userKey)
             const userData = JSON.parse(json)
-            this.$store.commit('setUser', null)
+            
+            //this.$store.commit('setUser', null)
             if(!userData){
                 this.$router.push({ name: 'auth'})
                 return
             }
+            axios.post(`${baseApiUrl}/validateToken`, userData)
+                .then(res =>{
+                    if(res.data){
+                        this.$store.commit('setUser', userData)
+                    } else{
+                        localStorage.removeItem(userKey)
+                        this.$router.push({ name: 'auth'})
+                }
+            })
             
-            const res = await axios.post(`${baseApiUrl}/validateToken`, userData)
-            if(res.data){
-                this.$store.commit('setUser', userData)
-            } else{
-                localStorage.removeItem(userKey)
-                this.$router.push({ name: 'auth'})
-            }
         }
     },
     watch:{

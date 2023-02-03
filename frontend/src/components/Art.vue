@@ -40,6 +40,10 @@ export default {
         getArt(){
             axios.get(`${baseApiUrl}/art/${this.artId}`).then(res => this.art = res.data)
         },
+        shareArt(){
+            
+            navigator.clipboard.writeText(window.location.href)
+        },
         deleteArt(){
             axios.delete(`${baseApiUrl}/art/${this.artId}`).then(this.$router.push({name: 'myarts'}))
         }

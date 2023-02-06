@@ -2,7 +2,7 @@
     <div id="art-div">
         <Canva v-if="art" :art="art" :key="art.id" :id="'canva'+art.id"/>
         <h1 v-else>art não encontrada :/</h1>
-        <div id="bts-div">
+        <div id="bts-div" v-if="art">
             <button id="share-bt" class="bt" @click="shareArt">compartilhar</button>
             <button id="delete-bt" class="bt" @click="deleteArt" v-if="belongsToUser">excluir</button>
         </div>

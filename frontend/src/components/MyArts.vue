@@ -1,5 +1,6 @@
 <template>
     <div id="my-arts">
+        <h1>minhas artes</h1>
         <div id="canvaConteiner">
             <Canva class="canva" v-for="(art, index) in arts" :key="index" :id="'canva'+index" :art="art"/>
         </div>

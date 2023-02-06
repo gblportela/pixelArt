@@ -1,5 +1,6 @@
 <template>
     <div id="feedDiv">
+        <h1>feed</h1>
         <div>
             <div id="canvaConteiner">
                 <Canva class="canva" v-for="(art, index) in arts" :key="index" :id="'canva'+index" :art="art"/>
@@ -28,7 +29,7 @@ export default{
         }
     },
     methods: {
-        async getArt(){
+        getArt(){
             this.offset = document.getElementsByClassName('canva').length
             axios.get(`${baseApiUrl}/art?offset=${this.offset}`)
                 .then(res => res.data.forEach(e => this.arts.push(e)))
